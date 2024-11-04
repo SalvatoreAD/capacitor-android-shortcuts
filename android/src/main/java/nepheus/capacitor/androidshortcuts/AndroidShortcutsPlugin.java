@@ -11,8 +11,9 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -29,15 +30,30 @@ public class AndroidShortcutsPlugin extends Plugin {
     }
 
     @PluginMethod
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public void pin(PluginCall call) {
         String id = call.getString("id");
         String shortLabel = call.getString("shortLabel");
         String longLabel = call.getString("longLabel");
         String urlIcon = call.getString("urlIcon");
         String data = call.getString("data");
+
+        //Controllare se è già presente il pin
+        boolean isExist = false;
+        List<ShortcutInfo> elenco = implementation.getShortcuts(this.getBridge());
+        for (int i = 0; i < elenco.size(); i++) {
+            ShortcutInfo item = elenco.get(i);
+            if (item.getId().equals(id)) {
+                isExist = true;
+                break;
+            }
+        }
         try {
-            implementation.pin(this.getBridge(), id, shortLabel, longLabel, urlIcon, data);
+            if(!isExist){
+                implementation.pin(this.getBridge(), id, shortLabel, longLabel, urlIcon, data);
+            }else{
+                call.reject("Shortcut Già Presente");
+            }
         } catch (Exception e) {
             call.reject(e.getMessage());
             return;
@@ -46,12 +62,22 @@ public class AndroidShortcutsPlugin extends Plugin {
     }
 
     @PluginMethod
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public void getShortCuts(PluginCall call) {
         try {
             List<ShortcutInfo> elenco = implementation.getShortcuts(this.getBridge());
-            Gson gson = new Gson();
-            gson.toJson(elenco, new TypeToken<List<ShortcutInfo>>() {}.getType());
-            call.resolve(new JSObject(gson.toString()));
+            JSONArray jsonArray = new JSONArray();
+            for (int i = 0; i < elenco.size(); i++) {
+                ShortcutInfo item = elenco.get(i);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", item.getId());
+                jsonObject.put("shortLabel", item.getShortLabel());
+                jsonObject.put("longLabel", item.getLongLabel());
+                jsonArray.put(i, jsonObject);
+            }
+            JSObject ret = new JSObject();
+            ret.put("result", jsonArray);
+            call.resolve(ret);
         } catch (Exception e) {
             call.reject(e.getMessage());
             return;
@@ -60,6 +86,7 @@ public class AndroidShortcutsPlugin extends Plugin {
     }
 
     @PluginMethod
+    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public void removeShortCut(PluginCall call) {
         String shortcutId = call.getString("shortcutId");
         try {

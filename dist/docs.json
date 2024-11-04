@@ -43,11 +43,7 @@
         "signature": "() => Promise<any>",
         "parameters": [],
         "returns": "Promise<any>",
-        "tags": [
-          {
-            "name": "returns"
-          }
-        ],
+        "tags": [],
         "docs": "Funzione per ottenere l'elenco degli shortcut installati",
         "complexTypes": [],
         "slug": "getshortcuts"
@@ -63,19 +59,7 @@
           }
         ],
         "returns": "Promise<void>",
-        "tags": [
-          {
-            "name": "param",
-            "text": "param0"
-          },
-          {
-            "name": "param",
-            "text": "param0.shortcutId"
-          },
-          {
-            "name": "returns"
-          }
-        ],
+        "tags": [],
         "docs": "Funzione di rimozione di uno shortcut",
         "complexTypes": [],
         "slug": "removeshortcut"

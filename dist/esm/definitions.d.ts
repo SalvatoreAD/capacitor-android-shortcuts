@@ -42,16 +42,10 @@ export interface AndroidShortcutsPlugin {
     pin(options: ShortcutItem): Promise<void>;
     /**
      * Funzione per ottenere l'elenco degli shortcut installati
-     *
-     * @returns {Promise<any>}
      */
     getShortCuts(): Promise<any>;
     /**
      * Funzione di rimozione di uno shortcut
-     *
-     * @param {{ shortcutId: string }} param0
-     * @param {string} param0.shortcutId
-     * @returns {Promise<void>}
      */
     removeShortCut({ shortcutId }: {
         shortcutId: string;
