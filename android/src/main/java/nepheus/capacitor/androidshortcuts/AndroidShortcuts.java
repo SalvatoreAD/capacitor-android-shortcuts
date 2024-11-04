@@ -87,13 +87,23 @@ public class AndroidShortcuts {
         );
         intent.putExtra("data", data);
 
-        return builder
-            .setActivity(bridge.getActivity().getComponentName())
-            .setIntent(intent)
-            .setShortLabel(shortLabel)
-            .setLongLabel(longLabel)
-                .setIcon(Icon.createWithBitmap(icon))
-            .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return builder
+                    .setActivity(bridge.getActivity().getComponentName())
+                    .setIntent(intent)
+                    .setShortLabel(shortLabel)
+                    .setLongLabel(longLabel)
+                    .setIcon(Icon.createWithAdaptiveBitmap(icon))
+                    .build();
+        } else {
+            return builder
+                    .setActivity(bridge.getActivity().getComponentName())
+                    .setIntent(intent)
+                    .setShortLabel(shortLabel)
+                    .setLongLabel(longLabel)
+                    .setIcon(Icon.createWithBitmap(icon))
+                    .build();
+        }
     }
 
 }
