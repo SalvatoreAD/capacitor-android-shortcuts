@@ -101,19 +101,6 @@ See [Wiki: Icon examples](https://github.com/NePheus/capacitor-android-shortcuts
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### isDynamicSupported()
-
-```typescript
-isDynamicSupported() => Promise<{ result: boolean; }>
-```
-
-Checks if dynamic shortcuts are supported on the device
-
-**Returns:** <code>Promise&lt;{ result: boolean; }&gt;</code>
-
---------------------
-
-
 ### isPinnedSupported()
 
 ```typescript
@@ -123,21 +110,6 @@ isPinnedSupported() => Promise<{ result: boolean; }>
 Checks if pinned shortcuts are supported on the device
 
 **Returns:** <code>Promise&lt;{ result: boolean; }&gt;</code>
-
---------------------
-
-
-### setDynamic(...)
-
-```typescript
-setDynamic(options: { items: ShortcutItem[]; }) => Promise<void>
-```
-
-Set dynamic shortcuts
-
-| Param         | Type                                    | Description                                      |
-| ------------- | --------------------------------------- | ------------------------------------------------ |
-| **`options`** | <code>{ items: ShortcutItem[]; }</code> | An items array with the options of each shortcut |
 
 --------------------
 
@@ -191,13 +163,13 @@ Removes all listeners.
 
 #### ShortcutItem
 
-| Prop             | Type                                                                                       | Description                                                                                                                                                                                                                                                                                                  |
-| ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`id`**         | <code>string</code>                                                                        | ID of the shortcut                                                                                                                                                                                                                                                                                           |
-| **`shortLabel`** | <code>string</code>                                                                        | Sets the short title of a shortcut. This is a mandatory field when publishing a new shortcut with ShortcutManager.addDynamicShortcuts(List) or ShortcutManager.setDynamicShortcuts(List). This field is intended to be a concise description of a shortcut. The recommended maximum length is 10 characters. |
-| **`longLabel`**  | <code>string</code>                                                                        | Sets the text of a shortcut. This field is intended to be more descriptive than the shortcut title. The launcher shows this instead of the short title when it has enough space. The recommend maximum length is 25 characters.                                                                              |
-| **`icon`**       | <code>{ type: <a href="#availableicontypes">AvailableIconTypes</a>; name: string; }</code> | Defines the icon of the shortcut. You can set the icon as a BASE64-Bitmap or as a Resource name                                                                                                                                                                                                              |
-| **`data`**       | <code>string</code>                                                                        | Data that is passed to the 'shortcut' event                                                                                                                                                                                                                                                                  |
+| Prop             | Type                | Description                                                                                                                                                                                                                                                                                                  |
+| ---------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`id`**         | <code>string</code> | ID of the shortcut                                                                                                                                                                                                                                                                                           |
+| **`shortLabel`** | <code>string</code> | Sets the short title of a shortcut. This is a mandatory field when publishing a new shortcut with ShortcutManager.addDynamicShortcuts(List) or ShortcutManager.setDynamicShortcuts(List). This field is intended to be a concise description of a shortcut. The recommended maximum length is 10 characters. |
+| **`longLabel`**  | <code>string</code> | Sets the text of a shortcut. This field is intended to be more descriptive than the shortcut title. The launcher shows this instead of the short title when it has enough space. The recommend maximum length is 25 characters.                                                                              |
+| **`urlIcon`**    | <code>string</code> | Defines the icon of the shortcut. You can set the icon as a BASE64-Bitmap or as a Resource name                                                                                                                                                                                                              |
+| **`data`**       | <code>string</code> | Data that is passed to the 'shortcut' event                                                                                                                                                                                                                                                                  |
 
 
 #### PluginListenerHandle
@@ -205,13 +177,5 @@ Removes all listeners.
 | Prop         | Type                                      |
 | ------------ | ----------------------------------------- |
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
-
-
-### Type Aliases
-
-
-#### AvailableIconTypes
-
-<code>'Bitmap' | 'Resource'</code>
 
 </docgen-api>
