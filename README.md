@@ -129,6 +129,34 @@ Add a pinned shortcut
 --------------------
 
 
+### getShortCuts()
+
+```typescript
+getShortCuts() => Promise<any>
+```
+
+Funzione per ottenere l'elenco degli shortcut installati
+
+**Returns:** <code>Promise&lt;any&gt;</code>
+
+--------------------
+
+
+### removeShortCut(...)
+
+```typescript
+removeShortCut({ shortcutId }: { shortcutId: string; }) => Promise<void>
+```
+
+Funzione di rimozione di uno shortcut
+
+| Param     | Type                                 |
+| --------- | ------------------------------------ |
+| **`__0`** | <code>{ shortcutId: string; }</code> |
+
+--------------------
+
+
 ### addListener('shortcut', ...)
 
 ```typescript

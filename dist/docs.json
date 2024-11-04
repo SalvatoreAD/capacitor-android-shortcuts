@@ -39,6 +39,48 @@
         "slug": "pin"
       },
       {
+        "name": "getShortCuts",
+        "signature": "() => Promise<any>",
+        "parameters": [],
+        "returns": "Promise<any>",
+        "tags": [
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Funzione per ottenere l'elenco degli shortcut installati",
+        "complexTypes": [],
+        "slug": "getshortcuts"
+      },
+      {
+        "name": "removeShortCut",
+        "signature": "({ shortcutId }: { shortcutId: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "__0",
+            "docs": "",
+            "type": "{ shortcutId: string; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "param0"
+          },
+          {
+            "name": "param",
+            "text": "param0.shortcutId"
+          },
+          {
+            "name": "returns"
+          }
+        ],
+        "docs": "Funzione di rimozione di uno shortcut",
+        "complexTypes": [],
+        "slug": "removeshortcut"
+      },
+      {
         "name": "addListener",
         "signature": "(eventName: 'shortcut', listenerFunc: (response: { data: string; }) => void) => Promise<PluginListenerHandle>",
         "parameters": [
