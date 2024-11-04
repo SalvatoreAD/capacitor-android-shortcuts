@@ -24,16 +24,7 @@ export interface ShortcutItem {
    * Defines the icon of the shortcut.
    * You can set the icon as a BASE64-Bitmap or as a Resource name
    */
-  icon?: {
-    /**
-     * Type of the icon
-     */
-    type: AvailableIconTypes;
-    /**
-     * Name of te Resource or data of the encoded Bitmap
-     */
-    name: string;
-  };
+  urlIcon: string;
   /**
    * Data that is passed to the 'shortcut' event
    */
@@ -42,18 +33,9 @@ export interface ShortcutItem {
 
 export interface AndroidShortcutsPlugin {
   /**
-   * Checks if dynamic shortcuts are supported on the device
-   */
-  isDynamicSupported(): Promise<{ result: boolean }>;
-  /**
    * Checks if pinned shortcuts are supported on the device
    */
   isPinnedSupported(): Promise<{ result: boolean }>;
-  /**
-   * Set dynamic shortcuts
-   * @param options An items array with the options of each shortcut
-   */
-  setDynamic(options: { items: ShortcutItem[] }): Promise<void>;
   /**
    * Add a pinned shortcut
    * @param options An option object for the pinned shortcut
