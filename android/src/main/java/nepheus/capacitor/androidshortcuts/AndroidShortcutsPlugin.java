@@ -3,6 +3,7 @@ package nepheus.capacitor.androidshortcuts;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -11,6 +12,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -65,6 +67,7 @@ public class AndroidShortcutsPlugin extends Plugin {
     @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     public void getShortCuts(PluginCall call) {
         try {
+            Gson gson = new Gson();
             List<ShortcutInfo> elenco = implementation.getShortcuts(this.getBridge());
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < elenco.size(); i++) {
@@ -75,14 +78,13 @@ public class AndroidShortcutsPlugin extends Plugin {
                 jsonObject.put("longLabel", item.getLongLabel());
                 jsonArray.put(i, jsonObject);
             }
+            Log.d("ShortCut", gson.toJson(jsonArray));
             JSObject ret = new JSObject();
             ret.put("result", jsonArray);
             call.resolve(ret);
         } catch (Exception e) {
             call.reject(e.getMessage());
-            return;
         }
-        call.resolve();
     }
 
     @PluginMethod
