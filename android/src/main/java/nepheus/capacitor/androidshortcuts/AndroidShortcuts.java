@@ -120,20 +120,4 @@ public class AndroidShortcuts {
         }
         return shortcutManager.getPinnedShortcuts();
     }
-
-    public void removeShortcut(Bridge bridge, String shortcutId) throws UnsupportedOperationException {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
-            throw new UnsupportedOperationException("Pinned shortcuts are not supported on this device");
-        }
-
-        ShortcutManager shortcutManager = bridge.getContext().getSystemService(ShortcutManager.class);
-
-        if (!shortcutManager.isRequestPinShortcutSupported()) {
-            throw new UnsupportedOperationException("Pinned shortcuts are not supported on this device");
-        }
-
-        List<String> shortcutIds = List.of(shortcutId);
-        shortcutManager.removeDynamicShortcuts(shortcutIds);
-    }
-
 }

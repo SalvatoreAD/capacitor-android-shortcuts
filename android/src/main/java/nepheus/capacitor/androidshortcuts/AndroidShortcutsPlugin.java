@@ -87,20 +87,6 @@ public class AndroidShortcutsPlugin extends Plugin {
         }
     }
 
-    @PluginMethod
-    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
-    public void removeShortCut(PluginCall call) {
-        String shortcutId = call.getString("shortcutId");
-        try {
-            implementation.removeShortcut(this.getBridge(), shortcutId);
-            call.resolve();
-        } catch (Exception e) {
-            call.reject(e.getMessage());
-            return;
-        }
-        call.resolve();
-    }
-
     /**
      * Listen for EXTRA_SHORTCUT_INTENT intents
      * @param intent

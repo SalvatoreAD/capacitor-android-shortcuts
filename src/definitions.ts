@@ -48,11 +48,6 @@ export interface AndroidShortcutsPlugin {
   getShortCuts(): Promise<any>;
 
   /**
-   * Funzione di rimozione di uno shortcut
-   */
-  removeShortCut({ shortcutId }: { shortcutId: string }): Promise<void>;
-
-  /**
    * Add a listener to a shortcut tap event
    * @param eventName
    * @param listenerFunc
