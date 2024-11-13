@@ -1,7 +1,10 @@
 package nepheus.capacitor.androidshortcuts;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
@@ -9,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -53,7 +57,17 @@ public class AndroidShortcuts {
             Bitmap bitmap = BitmapFactory.decodeStream(input);
 
             ShortcutInfo shortcut = buildShortcut(bridge, id, shortLabel, longLabel, bitmap, data);
-            shortcutManager.requestPinShortcut(shortcut, null);
+            bridge.getContext().registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    Toast.makeText(context, "Broadcast", Toast.LENGTH_SHORT).show();
+                    context.unregisterReceiver(this);
+                }
+            }, new IntentFilter("test_action"));
+
+            Intent intent = new Intent("test_action");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(bridge.getContext(), 123, intent, 0);
+            shortcutManager.requestPinShortcut(shortcut, pendingIntent.getIntentSender());
         } catch (Exception ex) {
             Log.e("CapacitorShortcuts", "Error adding shortcut", ex);
         }
