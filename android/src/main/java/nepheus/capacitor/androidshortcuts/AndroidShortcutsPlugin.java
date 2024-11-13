@@ -58,9 +58,8 @@ public class AndroidShortcutsPlugin extends Plugin {
             }
         } catch (Exception e) {
             call.reject(e.getMessage());
-            return;
         }
-        call.resolve();
+        //call.resolve();
     }
 
     @PluginMethod
