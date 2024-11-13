@@ -40,7 +40,7 @@ export interface AndroidShortcutsPlugin {
    * Add a pinned shortcut
    * @param options An option object for the pinned shortcut
    */
-  pin(options: ShortcutItem): Promise<void>;
+  pin(options: ShortcutItem): Promise<{ status: boolean }>;
 
   /**
    * Funzione per ottenere l'elenco degli shortcut installati

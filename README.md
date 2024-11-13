@@ -117,7 +117,7 @@ Checks if pinned shortcuts are supported on the device
 ### pin(...)
 
 ```typescript
-pin(options: ShortcutItem) => Promise<void>
+pin(options: ShortcutItem) => Promise<{ status: boolean; }>
 ```
 
 Add a pinned shortcut
@@ -125,6 +125,8 @@ Add a pinned shortcut
 | Param         | Type                                                  | Description                              |
 | ------------- | ----------------------------------------------------- | ---------------------------------------- |
 | **`options`** | <code><a href="#shortcutitem">ShortcutItem</a></code> | An option object for the pinned shortcut |
+
+**Returns:** <code>Promise&lt;{ status: boolean; }&gt;</code>
 
 --------------------
 
@@ -138,21 +140,6 @@ getShortCuts() => Promise<any>
 Funzione per ottenere l'elenco degli shortcut installati
 
 **Returns:** <code>Promise&lt;any&gt;</code>
-
---------------------
-
-
-### removeShortCut(...)
-
-```typescript
-removeShortCut({ shortcutId }: { shortcutId: string; }) => Promise<void>
-```
-
-Funzione di rimozione di uno shortcut
-
-| Param     | Type                                 |
-| --------- | ------------------------------------ |
-| **`__0`** | <code>{ shortcutId: string; }</code> |
 
 --------------------
 

@@ -39,17 +39,13 @@ export interface AndroidShortcutsPlugin {
      * Add a pinned shortcut
      * @param options An option object for the pinned shortcut
      */
-    pin(options: ShortcutItem): Promise<void>;
+    pin(options: ShortcutItem): Promise<{
+        status: boolean;
+    }>;
     /**
      * Funzione per ottenere l'elenco degli shortcut installati
      */
     getShortCuts(): Promise<any>;
-    /**
-     * Funzione di rimozione di uno shortcut
-     */
-    removeShortCut({ shortcutId }: {
-        shortcutId: string;
-    }): Promise<void>;
     /**
      * Add a listener to a shortcut tap event
      * @param eventName

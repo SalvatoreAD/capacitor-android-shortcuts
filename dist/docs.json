@@ -17,7 +17,7 @@
       },
       {
         "name": "pin",
-        "signature": "(options: ShortcutItem) => Promise<void>",
+        "signature": "(options: ShortcutItem) => Promise<{ status: boolean; }>",
         "parameters": [
           {
             "name": "options",
@@ -25,7 +25,7 @@
             "type": "ShortcutItem"
           }
         ],
-        "returns": "Promise<void>",
+        "returns": "Promise<{ status: boolean; }>",
         "tags": [
           {
             "name": "param",
@@ -47,22 +47,6 @@
         "docs": "Funzione per ottenere l'elenco degli shortcut installati",
         "complexTypes": [],
         "slug": "getshortcuts"
-      },
-      {
-        "name": "removeShortCut",
-        "signature": "({ shortcutId }: { shortcutId: string; }) => Promise<void>",
-        "parameters": [
-          {
-            "name": "__0",
-            "docs": "",
-            "type": "{ shortcutId: string; }"
-          }
-        ],
-        "returns": "Promise<void>",
-        "tags": [],
-        "docs": "Funzione di rimozione di uno shortcut",
-        "complexTypes": [],
-        "slug": "removeshortcut"
       },
       {
         "name": "addListener",
