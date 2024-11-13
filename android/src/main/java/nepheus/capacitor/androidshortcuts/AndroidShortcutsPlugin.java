@@ -52,7 +52,7 @@ public class AndroidShortcutsPlugin extends Plugin {
         }
         try {
             if(!isExist){
-                implementation.pin(this.getBridge(), id, shortLabel, longLabel, urlIcon, data);
+                implementation.pin(call, this.getBridge(), id, shortLabel, longLabel, urlIcon, data);
             }else{
                 call.reject("Shortcut Già Presente");
             }

@@ -1,5 +1,6 @@
 package nepheus.capacitor.androidshortcuts;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,11 +13,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import com.getcapacitor.Bridge;
+import com.getcapacitor.JSObject;
+import com.getcapacitor.PluginCall;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -35,9 +37,10 @@ public class AndroidShortcuts {
         return false;
     }
 
-    public void pin(Bridge bridge, String id, String shortLabel, String longLabel, String urlIcon, String data)
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    public void pin(PluginCall call, Bridge bridge, String id, String shortLabel, String longLabel, String urlIcon, String data)
         throws UnsupportedOperationException {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             throw new UnsupportedOperationException("Pinned shortcuts are not supported on this device");
         }
 
@@ -57,16 +60,30 @@ public class AndroidShortcuts {
             Bitmap bitmap = BitmapFactory.decodeStream(input);
 
             ShortcutInfo shortcut = buildShortcut(bridge, id, shortLabel, longLabel, bitmap, data);
-            bridge.getContext().registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    Toast.makeText(context, "Broadcast", Toast.LENGTH_SHORT).show();
-                    context.unregisterReceiver(this);
-                }
-            }, new IntentFilter("test_action"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                bridge.getContext().registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        JSObject object = new JSObject();
+                        object.put("status", true);
+                        call.resolve(object);
+                        context.unregisterReceiver(this);
+                    }
+                }, new IntentFilter("test_action"), Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                bridge.getContext().registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        JSObject object = new JSObject();
+                        object.put("status", true);
+                        call.resolve(object);
+                        context.unregisterReceiver(this);
+                    }
+                }, new IntentFilter("test_action"));
+            }
 
             Intent intent = new Intent("test_action");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(bridge.getContext(), 123, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(bridge.getContext(), 123, intent, PendingIntent.FLAG_IMMUTABLE);
             shortcutManager.requestPinShortcut(shortcut, pendingIntent.getIntentSender());
         } catch (Exception ex) {
             Log.e("CapacitorShortcuts", "Error adding shortcut", ex);
